@@ -1,0 +1,56 @@
+---
+title: "Clean and transform: Australian energy report 2021"
+author: "CW Yong"
+date: "September 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(here)
+```
+
+## Project brief
+The high level goal of this project is to answer two question's about Australia's energy:
+
+1) From what sources does it come?
+2) What role is played by renewable energy?
+
+The raw data used for this analysis comes from the website of the Australian Government's Department of Industry, Science, Energy and Resources. A copy of the Excel file is together with this html file in my Github repository, and the link to the government website is: 
+
+https://www.energy.gov.au/publications/australian-energy-update-2019
+
+
+I used the R code below, to transform the raw data into a format suitable for plotting in Tableau. The link to the resulting Tableau story is: 
+
+https://public.tableau.com/views/AustraliasenergystorySeptember2021/Story
+
+
+### Step 1
+Import the source Excel sheet '2.2 Energy consumption by fuel type' as a data frame in R Studio.
+
+```{r}
+#Import the sheet into a variable called wide1
+wide1 <- read_excel("Australian Energy Update 2020 data for charts.xlsx", 
+    sheet = "2.2", range = "A4:E45")
+wide1
+```
+
+
+
+### Step 2
+Convert the imported data frame from wide to long format, then export it as a CSV file.
+```{r}
+#Use gather() to convert it to long format, and export this as a CSV file
+long1 <- wide1 %>% gather(key = Fuel_type, value = Petajoules, `Coal`:`Renewables`)
+write.csv(long1, "2.2 Energy consumption by fuel type.csv", row.names = FALSE)
+long1
+```
+
+I repeated Steps 1 and 2 for each relevant Excel sheet, and shared the resulting insights in the 'Tableau story' above.
+
+
+
+### End of R Markdown report
