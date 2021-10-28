@@ -1,5 +1,5 @@
 # R-portfolio
-CW's uses of R for data analysis
+CW's use of R for data analysis
 
 Updated on 6 Oct 2021:
 
